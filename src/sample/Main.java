@@ -7,6 +7,7 @@ import Model.Pioche;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -36,6 +37,23 @@ public class Main extends Application {
         transition.setCycleCount(3);
         transition.play();*/
 
+        //CREATION DES DEFAUSSES
+
+        /*Defausse defausseRouge = new Defausse(-200.0,0.0,0,root);
+        Defausse defausseVerte = new Defausse(-100.0,0.0,1,root);
+        Defausse defausseJaune = new Defausse(0.0,0.0,2,root);
+        Defausse defausseBlanche = new Defausse(100.0,0.0,3,root);
+        Defausse defausseBleue = new Defausse(200.0,0.0,4,root);*/
+        Defausse[] defausses = new Defausse[5];
+        defausses[0] = new Defausse(-200.0,0.0,0,root);
+        defausses[1] = new Defausse(-100.0,0.0,1,root);
+        defausses[2] = new Defausse(0.0,0.0,2,root);
+        defausses[3] = new Defausse(100.0,0.0,3,root);
+        defausses[4] = new Defausse(200.0,0.0,4,root);
+        /*for(Defausse defausse : defausses) {
+            defausse.afficherDefausse();
+        }*/
+
         //TIRAGE DES PREMIERES CARTES
         Pioche pioche = new Pioche();
         Carte[] tirage1 = new Carte[8];
@@ -46,19 +64,15 @@ public class Main extends Application {
         mainJoueur1.afficherMain();
 
         //Index :
-        //0-7 : mainJoueur
-        //8-12 : Defausse rouge, verte, jaune, blanche, bleue
+        //0-4 : Défausses rouge, verte, jaune, blanche, bleue
+        //5-12 : MainJoueur
+        //13-14 : curseurs
 
-        Defausse defausseRouge = new Defausse(-200.0,0.0,0,root);
-        Defausse defausseVerte = new Defausse(-100.0,0.0,1,root);
-        Defausse defausseJaune = new Defausse(0.0,0.0,2,root);
-        Defausse defausseBlanche = new Defausse(100.0,0.0,3,root);
-        Defausse defausseBleue = new Defausse(200.0,0.0,4,root);
-        defausseRouge.afficherDefausse();
-        defausseVerte.afficherDefausse();
-        defausseJaune.afficherDefausse();
-        defausseBlanche.afficherDefausse();
-        defausseBleue.afficherDefausse();
+        //CHARGEMENT DES CURSEURS
+        ImageView curseur1 = new ImageView();
+        root.getChildren().add(curseur1);
+        ImageView curseur2 = new ImageView();
+        root.getChildren().add(curseur2);
 
         primaryStage.show();
     }

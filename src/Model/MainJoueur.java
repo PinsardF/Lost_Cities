@@ -1,8 +1,10 @@
 package Model;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,9 @@ public class MainJoueur {
             iv[i].setTranslateX(68*i-238);
             iv[i].setTranslateY(350);
             iv[i].setImage(cartes[i].getImage());
+            iv[i].setOnMouseClicked(event -> {
+                carteCliquee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)));
+            });
             root.getChildren().add(iv[i]);
         }
     }
@@ -41,10 +46,26 @@ public class MainJoueur {
         System.out.println(resultat);
     }
 
+    public void carteCliquee(int indice) {
+        /*int id = Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11));
+        File carteFile = new File("./src/media/vide.png");
+        Image image = new Image(carteFile.toURI().toString());
+        ((ImageView) root.getChildren().get(id)).setImage(image);*/
+        System.out.println("La carte " + indice + " a été cliquée");
+        int couleur = cartes[indice].getId_couleur();
+        double x = root.getChildren().get(couleur).getTranslateX();
+        double y = root.getChildren().get(couleur).getTranslateY();
+        ((ImageView) root.getChildren().get(13)).setTranslateX(x);
+        ((ImageView) root.getChildren().get(13)).setTranslateY(y);
+        File carteFile = new File("./src/media/curseur.png");
+        Image image = new Image(carteFile.toURI().toString());
+        ((ImageView) root.getChildren().get(13)).setImage(image);
+    }
+
     public void afficherMain() {
         trier();
         for(int i = 0; i < 8; i++) {
-        ((ImageView) root.getChildren().get(i)).setImage(cartes[i].getImage());
+        ((ImageView) root.getChildren().get(5 + i)).setImage(cartes[i].getImage());
         }
 
     }

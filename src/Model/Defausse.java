@@ -20,6 +20,7 @@ public class Defausse {
         positionY = y;
         this.couleurId = couleurId;
         this.root = root;
+        //cartes.add(new Carte(3,"vert"));
         ImageView iv = new ImageView();
         iv.setTranslateX(x);
         iv.setTranslateY(y);
@@ -31,11 +32,11 @@ public class Defausse {
 
     public void afficherDefausse() {
         if(cartes.size() > 0) {
-            ((ImageView) root.getChildren().get(8+couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
+            ((ImageView) root.getChildren().get(couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
         } else {
             File carteFile = new File("./src/media/vide.png");
             Image image = new Image(carteFile.toURI().toString());
-            ((ImageView) root.getChildren().get(8)).setImage(image);
+            ((ImageView) root.getChildren().get(couleurId)).setImage(image);
         }
     }
 }
