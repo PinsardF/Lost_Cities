@@ -1,6 +1,7 @@
 package sample;
 
 import Model.Carte;
+import Model.Defausse;
 import Model.MainJoueur;
 import Model.Pioche;
 import javafx.application.Application;
@@ -17,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         //CREATION DU BACKGROUND ET DE L'ECRAN
         Pane root = new StackPane();
-        File file = new File("./src/media/background2.png");
+        File file = new File("./src/media/background3.png");
         Image image = new Image(file.toURI().toString());
         BackgroundImage myBI= new BackgroundImage(image,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -43,6 +44,21 @@ public class Main extends Application {
         }
         MainJoueur mainJoueur1 = new MainJoueur(tirage1, root);
         mainJoueur1.afficherMain();
+
+        //Index :
+        //0-7 : mainJoueur
+        //8-12 : Defausse rouge, verte, jaune, blanche, bleue
+
+        Defausse defausseRouge = new Defausse(-200.0,0.0,0,root);
+        Defausse defausseVerte = new Defausse(-100.0,0.0,1,root);
+        Defausse defausseJaune = new Defausse(0.0,0.0,2,root);
+        Defausse defausseBlanche = new Defausse(100.0,0.0,3,root);
+        Defausse defausseBleue = new Defausse(200.0,0.0,4,root);
+        defausseRouge.afficherDefausse();
+        defausseVerte.afficherDefausse();
+        defausseJaune.afficherDefausse();
+        defausseBlanche.afficherDefausse();
+        defausseBleue.afficherDefausse();
 
         primaryStage.show();
     }

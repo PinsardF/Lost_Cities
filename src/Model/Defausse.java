@@ -1,32 +1,41 @@
 package Model;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Defausse {
     private List<Carte> cartes = new ArrayList<>();
-    private int positionX;
-    private int positionY;
+    private double positionX;
+    private double positionY;
     private int couleurId;
     Pane root;
 
-    public Defausse(int x, int y, int couleurId, Pane root) {
+    public Defausse(double x, double y, int couleurId, Pane root) {
         positionX = x;
         positionY = y;
         this.couleurId = couleurId;
         this.root = root;
+        ImageView iv = new ImageView();
+        iv.setTranslateX(x);
+        iv.setTranslateY(y);
+        File carteFile = new File("./src/media/vide.png");
+        Image image = new Image(carteFile.toURI().toString());
+        iv.setImage(image);
+        root.getChildren().add(iv);
     }
 
-    public void afficherDefausse(Pane root) {
+    public void afficherDefausse() {
         if(cartes.size() > 0) {
-            ImageView iv = new ImageView();
-            iv.setImage(cartes.get(cartes.size() - 1).getImage());
-            iv.setTranslateX(positionX);
-            iv.setTranslateY(positionY);
-            root.getChildren().add(iv);
+            ((ImageView) root.getChildren().get(8+couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
+        } else {
+            File carteFile = new File("./src/media/vide.png");
+            Image image = new Image(carteFile.toURI().toString());
+            ((ImageView) root.getChildren().get(8)).setImage(image);
         }
     }
 }
