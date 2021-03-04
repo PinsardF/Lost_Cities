@@ -12,20 +12,22 @@ import java.util.List;
 public class MainJoueur {
     private Carte[] cartes;
     Pane root;
+    private int carteSelectionnee;
 
     public MainJoueur(Carte[] init, Pane root) {
         this.cartes = init;
         this.root = root;
+        carteSelectionnee = -1;
         ImageView[] iv = new ImageView[8];
         for(int i=0 ; i<8 ; i++) {
             iv[i] = new ImageView();
             iv[i].setId("mainJoueur"+i);
             iv[i].setTranslateX(68*i-238);
             iv[i].setTranslateY(350);
-            iv[i].setImage(cartes[i].getImage());
+            iv[i].setImage(cartes[i].getImage());/*
             iv[i].setOnMouseClicked(event -> {
                 carteCliquee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)));
-            });
+            });*/
             root.getChildren().add(iv[i]);
         }
     }
@@ -101,5 +103,13 @@ public class MainJoueur {
                 }
             }
         }
+    }
+
+    public int getCarteSelectionnee() {
+        return carteSelectionnee;
+    }
+
+    public void setCarteSelectionnee(int valeur) {
+        carteSelectionnee = valeur;
     }
 }

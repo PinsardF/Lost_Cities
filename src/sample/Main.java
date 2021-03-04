@@ -63,16 +63,56 @@ public class Main extends Application {
         MainJoueur mainJoueur1 = new MainJoueur(tirage1, root);
         mainJoueur1.afficherMain();
 
-        //Index :
-        //0-4 : Défausses rouge, verte, jaune, blanche, bleue
-        //5-12 : MainJoueur
-        //13-14 : curseurs
-
         //CHARGEMENT DES CURSEURS
         ImageView curseur1 = new ImageView();
         root.getChildren().add(curseur1);
         ImageView curseur2 = new ImageView();
         root.getChildren().add(curseur2);
+
+        //MISE EN PLACE DE L'EVENEMENT "CLIQUER SUR UNE CARTE"
+        for(int i = 5; i < 13; i++) {
+            final int indice = i;
+            ((ImageView) root.getChildren().get(i)).setOnMouseClicked(event -> {
+                switch(event.getButton().name()) {
+                    case "PRIMARY":
+                        Carte carte;
+                        int couleur;
+                        double x, y;
+                        carte = mainJoueur1.getCarte(Integer.parseInt(((ImageView) root.getChildren().get(indice)).getId().substring(10,11)));
+                        couleur = carte.getId_couleur();
+                        x = root.getChildren().get(couleur).getTranslateX();
+                        y = root.getChildren().get(couleur).getTranslateY();
+                        ((ImageView) root.getChildren().get(13)).setTranslateX(x);
+                        ((ImageView) root.getChildren().get(13)).setTranslateY(y);
+                        File carteFile = new File("./src/media/curseur.png");
+                        Image carteImage = new Image(carteFile.toURI().toString());
+                        ((ImageView) root.getChildren().get(13)).setImage(carteImage);
+                        mainJoueur1.setCarteSelectionnee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)));
+                        //On met mainJoueur1.carteSeléctionnée à la bonne valeur
+                        break;
+                    case "SECONDARY" :
+                        File carteFileSecondary = new File("./src/media/vide.png");
+                        Image carteImageSecondary = new Image(carteFileSecondary.toURI().toString());
+                        mainJoueur1.setCarteSelectionnee(-1);
+                        //System.out.println("secondaire");
+                        break;
+                }
+            });
+        }
+
+
+
+
+        //PROCHAINE ETAPE : METTRE EN PLACE L'EVENEMENT "CLIQUER SUR UNE DEFAUSSE"
+
+
+
+
+
+        //Index :
+        //0-4 : Défausses rouge, verte, jaune, blanche, bleue
+        //5-12 : MainJoueur
+        //13-14 : curseurs
 
         primaryStage.show();
     }
