@@ -14,7 +14,6 @@ public class Carte {
         this.valeur = valeur;
         this.couleur = couleur;
         String url = Integer.toString(valeur) + couleur + ".png";
-        //String url = Integer.toString(valeur) + "jaune.png";
         File carteFile = new File("./src/media/" + url);
         this.image = new Image(carteFile.toURI().toString());
         switch(couleur) {
