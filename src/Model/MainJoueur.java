@@ -44,7 +44,6 @@ public class MainJoueur {
     }
 
     public void afficherMain() {
-        trier();
         for(int i = 0; i < 8; i++) {
         ((ImageView) root.getChildren().get(5 + i)).setImage(cartes[i].getImage());
         }
@@ -96,5 +95,9 @@ public class MainJoueur {
 
     public void setCarteSelectionnee(int valeur) {
         carteSelectionnee = valeur;
+    }
+
+    public void supprimerCarte(int indice) {
+        cartes[indice] = new Carte(-1,"vide");
     }
 }

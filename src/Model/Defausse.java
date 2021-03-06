@@ -41,4 +41,16 @@ public class Defausse {
             ((ImageView) root.getChildren().get(couleurId)).setImage(image);
         }
     }
+
+    public void ajouterCarte(Carte carte) {
+        cartes.add(carte);
+    }
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
 }

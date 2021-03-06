@@ -4,12 +4,14 @@ import Model.Carte;
 import Model.Defausse;
 import Model.MainJoueur;
 import Model.Pioche;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -29,11 +31,15 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 800));
 
         //BLOC TRANSITION
-        /*TranslateTransition transition = new TranslateTransition();
+        /*File filefile = new File("./src/media/2jaune.png");
+        Image testImage = new Image(filefile.toURI().toString());
+        ImageView imageView = new ImageView(testImage);
+        root.getChildren().add(imageView);
+        TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(2));
         transition.setToX(200);
         transition.setToY(200);
-        transition.setNode(circle);
+        transition.setNode(imageView);
         transition.setAutoReverse(true);
         transition.setCycleCount(3);
         transition.play();*/
@@ -53,6 +59,7 @@ public class Main extends Application {
             tirage1[i] = pioche.piocher();
         }
         MainJoueur mainJoueur1 = new MainJoueur(tirage1, root);
+        mainJoueur1.trier();
         mainJoueur1.afficherMain();
 
         //Chargement des curseurs
@@ -65,9 +72,36 @@ public class Main extends Application {
         for(int i = 0; i < 5; i++) {
             final int indice = i;
             ((ImageView) root.getChildren().get(indice)).setOnMouseClicked(event -> {
+                //System.out.println("");
                 if(mainJoueur1.getCarteSelectionnee().getId_couleur() ==
                         Integer.parseInt(((ImageView) event.getSource()).getId().substring(8,9))) {
-                    System.out.println("Carte déplacée");
+                    //On récupère l'image de la carte
+                    Image carteImage = (mainJoueur1.getCarteSelectionnee().getImage());
+                    //On ajoute la carte à la défausse
+                    defausses[indice].ajouterCarte(mainJoueur1.getCarteSelectionnee());
+                    //On retire la carte de la main
+                    mainJoueur1.supprimerCarte(mainJoueur1.getCarteSelectionneeId());
+                    //On fait disparaître la carte de la main
+                    File carteFileVide = new File("./src/media/vide.png");
+                    Image imageVide = new Image(carteFileVide.toURI().toString());
+                    ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+5)).setImage(imageVide);
+                    mainJoueur1.afficherMain();
+                    //On déplace la carte
+                    TranslateTransition carteTransition = new TranslateTransition();
+                    carteTransition.setDuration(Duration.seconds(0.4));
+                    carteTransition.setToX(defausses[indice].getPositionX());
+                    carteTransition.setToY(defausses[indice].getPositionY());
+                    double x = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+5)).getTranslateX();
+                    double y = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+5)).getTranslateY();
+                    ((ImageView) root.getChildren().get(15)).setTranslateX(x);
+                    ((ImageView) root.getChildren().get(15)).setTranslateY(y);
+                    ((ImageView) root.getChildren().get(15)).setImage(carteImage);
+                    carteTransition.setNode((ImageView) root.getChildren().get(15));
+                    carteTransition.setOnFinished(transitionEvent -> {
+                        defausses[indice].afficherDefausse();
+                        ((ImageView) root.getChildren().get(15)).setImage(imageVide);
+                    });
+                    carteTransition.play();
                 }
             });
         }
@@ -123,12 +157,19 @@ public class Main extends Application {
             });
         }
 
+        ImageView transitionImage = new ImageView();
+        /*File a = new File("./src/media/3jaune.png");
+        Image b = new Image(a.toURI().toString());
+        transitionImage.setImage(b);
+        transitionImage.setTranslateX(0);
+        transitionImage.setTranslateY(0);*/
+        root.getChildren().add(transitionImage);
+
         //Index :
         //0-4 : Défausses rouge, verte, jaune, blanche, bleue
         //5-12 : MainJoueur
         //13-14 : curseurs
-
-        //PROCHAINE ETAPE : Déplacer une carte de la main à la Défausse
+        //15 : Transition
 
         primaryStage.show();
     }
