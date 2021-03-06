@@ -24,7 +24,9 @@ public class Defausse {
         ImageView iv = new ImageView();
         iv.setTranslateX(x);
         iv.setTranslateY(y);
-        File carteFile = new File("./src/media/vide.png");
+        iv.setId("defausse" + couleurId);
+        String url = "./src/media/defausse" + Integer.toString(couleurId) + ".png";
+        File carteFile = new File(url);
         Image image = new Image(carteFile.toURI().toString());
         iv.setImage(image);
         root.getChildren().add(iv);

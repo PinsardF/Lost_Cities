@@ -48,22 +48,6 @@ public class MainJoueur {
         System.out.println(resultat);
     }
 
-    public void carteCliquee(int indice) {
-        /*int id = Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11));
-        File carteFile = new File("./src/media/vide.png");
-        Image image = new Image(carteFile.toURI().toString());
-        ((ImageView) root.getChildren().get(id)).setImage(image);*/
-        System.out.println("La carte " + indice + " a été cliquée");
-        int couleur = cartes[indice].getId_couleur();
-        double x = root.getChildren().get(couleur).getTranslateX();
-        double y = root.getChildren().get(couleur).getTranslateY();
-        ((ImageView) root.getChildren().get(13)).setTranslateX(x);
-        ((ImageView) root.getChildren().get(13)).setTranslateY(y);
-        File carteFile = new File("./src/media/curseur.png");
-        Image image = new Image(carteFile.toURI().toString());
-        ((ImageView) root.getChildren().get(13)).setImage(image);
-    }
-
     public void afficherMain() {
         trier();
         for(int i = 0; i < 8; i++) {
@@ -105,8 +89,12 @@ public class MainJoueur {
         }
     }
 
-    public int getCarteSelectionnee() {
+    public int getCarteSelectionneeId() {
         return carteSelectionnee;
+    }
+
+    public Carte getCarteSelectionnee() {
+        return cartes[carteSelectionnee];
     }
 
     public void setCarteSelectionnee(int valeur) {

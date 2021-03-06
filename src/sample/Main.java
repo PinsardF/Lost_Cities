@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Main extends Application {
@@ -19,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         //CREATION DU BACKGROUND ET DE L'ECRAN
         Pane root = new StackPane();
-        File file = new File("./src/media/background3.png");
+        File file = new File("./src/media/background.png");
         Image image = new Image(file.toURI().toString());
         BackgroundImage myBI= new BackgroundImage(image,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -75,6 +76,17 @@ public class Main extends Application {
             ((ImageView) root.getChildren().get(i)).setOnMouseClicked(event -> {
                 switch(event.getButton().name()) {
                     case "PRIMARY":
+                        if(mainJoueur1.getCarteSelectionneeId() > -1) {
+                            if(mainJoueur1.getCarteSelectionneeId() !=
+                                    Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11))) {
+                                //CAS : Carte déjà cliquée, nouvelle carte cliquée
+                                //On remet la précédente dans la main
+                                ((ImageView) root.getChildren().get(5 + mainJoueur1.getCarteSelectionneeId())).setTranslateY(350.0);
+                            }
+                        }
+                        //Et on sort la nouvelle
+                        ((ImageView) root.getChildren().get((Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)))+5)).setTranslateY(300.0);
+
                         Carte carte;
                         int couleur;
                         double x, y;
@@ -87,28 +99,31 @@ public class Main extends Application {
                         File carteFile = new File("./src/media/curseur.png");
                         Image carteImage = new Image(carteFile.toURI().toString());
                         ((ImageView) root.getChildren().get(13)).setImage(carteImage);
-                        mainJoueur1.setCarteSelectionnee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)));
                         //On met mainJoueur1.carteSeléctionnée à la bonne valeur
+                        mainJoueur1.setCarteSelectionnee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10,11)));
                         break;
                     case "SECONDARY" :
                         File carteFileSecondary = new File("./src/media/vide.png");
                         Image carteImageSecondary = new Image(carteFileSecondary.toURI().toString());
+                        ((ImageView) root.getChildren().get(13)).setImage(carteImageSecondary);
+                        ((ImageView) root.getChildren().get(5 + mainJoueur1.getCarteSelectionneeId())).setTranslateY(350.0);
                         mainJoueur1.setCarteSelectionnee(-1);
-                        //System.out.println("secondaire");
                         break;
                 }
             });
         }
 
-
-
-
-        //PROCHAINE ETAPE : METTRE EN PLACE L'EVENEMENT "CLIQUER SUR UNE DEFAUSSE"
-
-
-
-
-
+        //MISE EN PLACE DE L'EVENEMENT "CLIQUER SUR UNE DEFAUSSE"/
+        for(int i = 0; i < 5; i++) {
+            final int indice = i;
+            ((ImageView) root.getChildren().get(indice)).setOnMouseClicked(event -> {
+                //System.out.println(event.getSource());
+                if(mainJoueur1.getCarteSelectionnee().getId_couleur() ==
+                        Integer.parseInt(((ImageView) event.getSource()).getId().substring(8,9))) {
+                    System.out.println("Carte déplacée");
+                }
+            });
+        }
         //Index :
         //0-4 : Défausses rouge, verte, jaune, blanche, bleue
         //5-12 : MainJoueur
