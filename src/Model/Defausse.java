@@ -53,4 +53,8 @@ public class Defausse {
     public double getPositionY() {
         return positionY;
     }
+
+    public Boolean estVide() {
+        return cartes.size() < 1;
+    }
 }

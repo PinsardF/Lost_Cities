@@ -11,8 +11,10 @@ public class MainJoueur {
     private Carte[] cartes;
     Pane root;
     private int carteSelectionnee;
+    private int etat;
 
     public MainJoueur(Carte[] init, Pane root) {
+        this.etat = 0;
         this.cartes = init;
         this.root = root;
         carteSelectionnee = -1;
@@ -35,7 +37,7 @@ public class MainJoueur {
         return this.cartes[i];
     }
 
-    public void getEtat() {
+    public void getEtatCartes() {
         String resultat = "";
         for(Carte carte : cartes) {
             resultat += Integer.toString(carte.getValeur()) + carte.getCouleur() + " ";
@@ -99,5 +101,13 @@ public class MainJoueur {
 
     public void supprimerCarte(int indice) {
         cartes[indice] = new Carte(-1,"vide");
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
 }
