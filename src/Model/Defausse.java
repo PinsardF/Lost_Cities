@@ -36,10 +36,16 @@ public class Defausse {
         if(cartes.size() > 0) {
             ((ImageView) root.getChildren().get(couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
         } else {
-            File carteFile = new File("./src/media/vide.png");
+            File carteFile = new File("./src/media/defausse" + couleurId + ".png");
             Image image = new Image(carteFile.toURI().toString());
             ((ImageView) root.getChildren().get(couleurId)).setImage(image);
         }
+    }
+
+    public Carte piocher() {
+        Carte derniereCarte = cartes.get(cartes.size() - 1);
+        cartes.remove(cartes.size() - 1);
+        return derniereCarte;
     }
 
     public void ajouterCarte(Carte carte) {

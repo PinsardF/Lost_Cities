@@ -45,6 +45,8 @@ public class Main extends Application {
         Defausse[] defausses = new Defausse[5];
         defausses[0] = new Defausse(-200.0,0.0,0,root);
         defausses[1] = new Defausse(-100.0,0.0,1,root);
+        defausses[1].ajouterCarte(new Carte(3,"vert"));
+        defausses[1].afficherDefausse();
         defausses[2] = new Defausse(0.0,0.0,2,root);
         defausses[3] = new Defausse(100.0,0.0,3,root);
         defausses[4] = new Defausse(200.0,0.0,4,root);
@@ -70,7 +72,8 @@ public class Main extends Application {
             final int indice = i;
             //Si on est en phase "placer une carte"
             ((ImageView) root.getChildren().get(indice)).setOnMouseClicked(event -> {
-                if(mainJoueur1.getEtat() == 0 && mainJoueur1.getCarteSelectionnee().getId_couleur() ==
+                if(mainJoueur1.getCarteSelectionneeId() > -1
+                        && mainJoueur1.getEtat() == 0 && mainJoueur1.getCarteSelectionnee().getId_couleur() ==
                         Integer.parseInt(((ImageView) event.getSource()).getId().substring(8,9))) {
                     //On récupère l'image de la carte
                     Image carteImage = (mainJoueur1.getCarteSelectionnee().getImage());
@@ -97,6 +100,7 @@ public class Main extends Application {
                     ((ImageView) root.getChildren().get(13)).setImage(carteImage);
                     carteTransition.setNode((ImageView) root.getChildren().get(13));
                     carteTransition.setOnFinished(transitionEvent -> {
+                        curseursDefausse[0].disparaitre(root);
                         defausses[indice].afficherDefausse();
                         afficherCurseurs(root, defausses, curseursDefausse);
                         mainJoueur1.setEtat(1);
@@ -104,7 +108,32 @@ public class Main extends Application {
                     carteTransition.play();
                  //Si on est en phase "piocher une carte"
                 } else if(mainJoueur1.getEtat() == 1 && !defausses[indice].estVide()) {
-                    System.out.println("Phase 1");
+                    //On récupère l'image de la carte
+                    Carte carteDeplacee = defausses[indice].piocher();
+                    defausses[indice].afficherDefausse();
+                    //On retire le curseur
+                    curseursDefausse[indice].disparaitre(root);
+                    //On déplace la carte (Transition)
+                    TranslateTransition carteTransition = new TranslateTransition();
+                    carteTransition.setDuration(Duration.seconds(0.4));
+                    double x = defausses[indice].getPositionX();
+                    double y = defausses[indice].getPositionY();
+                    ((ImageView) root.getChildren().get(13)).setTranslateX(x);
+                    ((ImageView) root.getChildren().get(13)).setTranslateY(y);
+                    int indiceCarte = mainJoueur1.ajouterCarte(carteDeplacee);
+                    //System.out.println(indiceCarte);
+                    //carteTransition.setToX(238);
+                    carteTransition.setToX(root.getChildren().get(indiceCarte+5).getTranslateX());
+                    carteTransition.setToY(350);
+                    ((ImageView) root.getChildren().get(13)).setImage(carteDeplacee.getImage());
+                    carteTransition.setNode(root.getChildren().get(13));
+                    carteTransition.play();
+                    /*
+                    carteTransition.setNode((ImageView) root.getChildren().get(13));
+                    carteTransition.setOnFinished(transitionEvent -> {secondEvent -> {
+                        //On ajoute la carte à la défausse
+                        defausses[indice].ajouterCarte(mainJoueur1.getCarteSelectionnee());
+                    }*/
                 }
             });
         }

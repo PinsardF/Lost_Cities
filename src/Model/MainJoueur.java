@@ -87,6 +87,28 @@ public class MainJoueur {
         }
     }
 
+    public int ajouterCarte(Carte nouvelleCarte) {
+        System.out.println(carteSelectionnee);
+        int indice;
+        for(int i = 0; i < 8; i++) {
+            if(cartes[i].getValeur() == -1) {
+                indice = i + 1;
+            } else {
+                indice = i;
+            }
+            if(nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
+                    nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
+                    && nouvelleCarte.getValeur() <= cartes[indice].getValeur()) {
+                if(carteSelectionnee < indice) {
+                    return i - 1;
+                }
+                return i;
+            }
+        }
+        System.out.println("problème");
+        return 7;
+    }
+
     public int getCarteSelectionneeId() {
         return carteSelectionnee;
     }
