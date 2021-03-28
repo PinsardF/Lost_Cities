@@ -74,8 +74,8 @@ public class Main extends Application {
         //Mise en place de l'événement "Cliquer sur une Défausse"
         for(int i = 0; i < 5; i++) {
             final int indice = i;
-            //Si on est en phase "placer une carte"
             ((ImageView) root.getChildren().get(indice)).setOnMouseClicked(event -> {
+                //Si on est en phase "placer une carte"
                 if(mainJoueur1.getCarteSelectionneeId() > -1
                         && mainJoueur1.getEtat() == "pose" && mainJoueur1.getCarteSelectionnee().getId_couleur() ==
                         Integer.parseInt(((ImageView) event.getSource()).getId().substring(8,9))) {
@@ -110,7 +110,7 @@ public class Main extends Application {
                         mainJoueur1.setEtat("pioche");
                     });
                     carteTransition.play();
-                 //Si on est en phase "piocher une carte"
+                //Si on est en phase "piocher une carte"
                 } else if(mainJoueur1.getEtat() == "pioche" && !defausses[indice].estVide()) {
                     //On récupère l'image de la carte
                     Carte carteDeplacee = defausses[indice].piocher();
@@ -151,22 +151,22 @@ public class Main extends Application {
                     carteTransition.setDuration(Duration.seconds(0.4));
                     double x = defausses[indice].getPositionX();
                     double y = defausses[indice].getPositionY();
-                    ((ImageView) root.getChildren().get(13)).setTranslateX(x);
-                    ((ImageView) root.getChildren().get(13)).setTranslateY(y);
+                    ((ImageView) root.getChildren().get(19)).setTranslateX(x);
+                    ((ImageView) root.getChildren().get(19)).setTranslateY(y);
                     carteTransition.setToX(root.getChildren().get(indiceCarte+5).getTranslateX());
                     carteTransition.setToY(350);
-                    ((ImageView) root.getChildren().get(13)).setImage(carteDeplacee.getImage());
-                    carteTransition.setNode(root.getChildren().get(13));
+                    ((ImageView) root.getChildren().get(19)).setImage(carteDeplacee.getImage());
+                    carteTransition.setNode(root.getChildren().get(19));
                     carteTransition.play();
                     deplacerCartes(root, mainJoueur1, mainJoueur1.getCarteSelectionneeId(), indiceCarte);
                     mainJoueur1.resetCarteSelectionee();
                     mainJoueur1.setEtat("fin du tour");
-                    /*
-                    carteTransition.setNode((ImageView) root.getChildren().get(13));
-                    carteTransition.setOnFinished(transitionEvent -> {secondEvent -> {
-                        //On ajoute la carte à la défausse
-                        defausses[indice].ajouterCarte(mainJoueur1.getCarteSelectionnee());
-                    }*/
+                    //On retire les curseurs des défausses
+                    File carteFileVide = new File("./src/media/vide.png");
+                    Image imageVide = new Image(carteFileVide.toURI().toString());
+                    for (int j = 0 ; j < 5 ; j++) {
+                        ((ImageView) root.getChildren().get(j + 13)).setImage(imageVide);
+                    }
                 }
             });
         }
@@ -238,7 +238,7 @@ public class Main extends Application {
 
         //Mise en place de l'événement "Cliquer sur la pioche"
         ((ImageView) root.getChildren().get(20)).setOnMouseClicked(event -> {
-            if (mainJoueur1.getEtat() == "fin du tour") {
+            if (mainJoueur1.getEtat() == "pioche") {
                 System.out.println("Pioche cliquée");
             }
         });
@@ -254,6 +254,8 @@ public class Main extends Application {
         //"pose"
         //"pioche"
         //"fin du tour" (déplacement des cartes dans la main)
+
+        //PRHOCHAINE ETAPE : piocher une carte /!\
 
         primaryStage.show();
     }
