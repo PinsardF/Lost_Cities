@@ -11,10 +11,10 @@ public class MainJoueur {
     private Carte[] cartes;
     Pane root;
     private int carteSelectionnee;
-    private int etat;
+    private String etat;
 
     public MainJoueur(Carte[] init, Pane root) {
-        this.etat = 0;
+        this.etat = "pose";
         this.cartes = init;
         this.root = root;
         carteSelectionnee = -1;
@@ -88,18 +88,30 @@ public class MainJoueur {
     }
 
     public int ajouterCarte(Carte nouvelleCarte) {
-        System.out.println(carteSelectionnee);
+        //System.out.println(carteSelectionnee);
         int indice;
         for(int i = 0; i < 8; i++) {
+            //On récupère le bon indice
             if(cartes[i].getValeur() == -1) {
                 indice = i + 1;
             } else {
                 indice = i;
-            }
-            if(nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
+            }/*
+            if(nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur() &&
+                nouvelleCarte.getValeur() == nouvelleCarte.getValeur()) {
+                return indice;
+            } else */
+            //Si la nouvelle carte est plus grande que la carte considérée...
+            if (nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
                     nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
                     && nouvelleCarte.getValeur() <= cartes[indice].getValeur()) {
                 if(carteSelectionnee < indice) {
+                    if(i == 0) {
+                        return 0;
+                    }
+                    if (cartes[i].getValeur() == -1) {
+                        return i;
+                    }
                     return i - 1;
                 }
                 return i;
@@ -111,6 +123,10 @@ public class MainJoueur {
 
     public int getCarteSelectionneeId() {
         return carteSelectionnee;
+    }
+
+    public void resetCarteSelectionee() {
+        carteSelectionnee = -1;
     }
 
     public Carte getCarteSelectionnee() {
@@ -125,11 +141,11 @@ public class MainJoueur {
         cartes[indice] = new Carte(-1,"vide");
     }
 
-    public int getEtat() {
+    public String getEtat() {
         return etat;
     }
 
-    public void setEtat(int etat) {
+    public void setEtat(String etat) {
         this.etat = etat;
     }
 }

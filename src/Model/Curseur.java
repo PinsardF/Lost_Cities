@@ -15,8 +15,10 @@ public class Curseur {
     public Curseur(Pane root, int indice) {
         positionX = 0;
         positionY = 0;
-        this.indice = indice;
-        root.getChildren().add(new ImageView());
+        this.indice = indice + 13;
+        ImageView curseurImageView = new ImageView();
+        curseurImageView.setId("curseur" + indice);
+        root.getChildren().add(curseurImageView);
     }
 
     public void disparaitre(Pane root) {
