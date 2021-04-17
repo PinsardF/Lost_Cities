@@ -47,7 +47,7 @@ public class MainJoueur {
 
     public void afficherMain() {
         for(int i = 0; i < 8; i++) {
-        ((ImageView) root.getChildren().get(5 + i)).setImage(cartes[i].getImage());
+        ((ImageView) root.getChildren().get(6 + i)).setImage(cartes[i].getImage());
         }
     }
 

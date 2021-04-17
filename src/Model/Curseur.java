@@ -15,7 +15,7 @@ public class Curseur {
     public Curseur(Pane root, int indice) {
         positionX = 0;
         positionY = 0;
-        this.indice = indice + 13;
+        this.indice = indice + 14;
         ImageView curseurImageView = new ImageView();
         curseurImageView.setId("curseur" + indice);
         root.getChildren().add(curseurImageView);
@@ -33,5 +33,6 @@ public class Curseur {
         File file = new File("./src/media/curseur.png");
         Image image = new Image(file.toURI().toString());
         ((ImageView) root.getChildren().get(indice)).setImage(image);
+        //root.getChildren().get(indice).toFront();
     }
 }
