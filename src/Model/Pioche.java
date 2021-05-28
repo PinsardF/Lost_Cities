@@ -11,8 +11,12 @@ import java.util.List;
 
 public class Pioche {
     private List<Carte> cartes = new ArrayList<>();
+    private double positionX;
+    private double positionY;
 
-    public Pioche(Pane root) {
+    public Pioche(Pane root, double x, double y) {
+        this.positionX = x;
+        this.positionY = y;
         String[] couleurs = {"jaune","bleu","blanc","rouge","vert"};
         for(String couleur : couleurs) {
             for(int i = 0; i < 3; i++) {
@@ -45,5 +49,13 @@ public class Pioche {
         for(int i = 0; i < 8; i++) {
             System.out.println(cartes.get(i).getValeur()+cartes.get(i).getCouleur() + " ");
         }
+    }
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
     }
 }

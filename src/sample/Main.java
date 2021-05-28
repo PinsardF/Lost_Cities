@@ -55,7 +55,7 @@ public class Main extends Application {
         defausses[4] = new Defausse(200.0,0.0,4,root);
 
         //Création de la pioche et tirage des premières cartes
-        Pioche pioche = new Pioche(root);
+        Pioche pioche = new Pioche(root, -330, 0);
         Carte[] tirage1 = new Carte[8];
         for(int i = 0; i < 8; i++) {
             tirage1[i] = pioche.piocher();
@@ -184,7 +184,9 @@ public class Main extends Application {
         //Mise en place de l'événement "Cliquer sur la pioche"
         ((ImageView) root.getChildren().get(5)).setOnMouseClicked(event -> {
             if (mainJoueur1.getEtat() == "pioche") {
-                pioche.etat();
+                Carte cartePiochée = pioche.piocher();
+                piocherCarte(root, cartePiochée, mainJoueur1, pioche.getPositionX(), pioche.getPositionY());
+                //pioche.etat();
             }
         });
 
@@ -199,6 +201,8 @@ public class Main extends Application {
         //"pose"
         //"pioche"
         //"fin du tour" (déplacement des cartes dans la main)
+
+        //PROCHAINE ETAPE : Piocher une carte dans la Pioche
 
         primaryStage.show();
     }
