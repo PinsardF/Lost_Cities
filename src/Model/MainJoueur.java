@@ -47,7 +47,9 @@ public class MainJoueur {
 
     public void afficherMain() {
         for(int i = 0; i < 8; i++) {
-        ((ImageView) root.getChildren().get(6 + i)).setImage(cartes[i].getImage());
+            root.getChildren().get(6 + i).setTranslateX(68*i-238);
+            root.getChildren().get(6 + i).setTranslateY(350);
+            ((ImageView) root.getChildren().get(6 + i)).setImage(cartes[i].getImage());
         }
     }
 
@@ -88,36 +90,58 @@ public class MainJoueur {
     }
 
     public int ajouterCarte(Carte nouvelleCarte) {
-        //System.out.println(carteSelectionnee);
+        /*
+        int indice = getIndice(nouvelleCarte);
+        System.out.println("Bonjour "+this.getCarteSelectionneeId());
+        for (int i = 0; i < cartes.length; i++) {
+            if (cartes[i].getValeur() == -1) {
+                cartes[i] = nouvelleCarte;
+                return indice;
+            }
+        }
+        System.out.println("Problème ajouterCarte");
+        return indice;
+        */
+        //cartes[this.getCarteSelectionneeId()] = nouvelleCarte;
+        return getIndice(nouvelleCarte);
+    }
+
+    public int getIndice(Carte nouvelleCarte) {
         int indice;
         for(int i = 0; i < 8; i++) {
             //On récupère le bon indice
             if(cartes[i].getValeur() == -1) {
+                //System.out.println("cartes[i].getValeur() == -1 car "+cartes[i].getValeur()+" = -1");
                 indice = i + 1;
             } else {
+                //System.out.println("cartes[i].getValeur() != -1 car "+cartes[i].getValeur()+" != -1");
                 indice = i;
-            }/*
-            if(nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur() &&
-                nouvelleCarte.getValeur() == nouvelleCarte.getValeur()) {
-                return indice;
-            } else */
+            }
             //Si la nouvelle carte est plus grande que la carte considérée...
             if (nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
-                    nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
-                    && nouvelleCarte.getValeur() <= cartes[indice].getValeur()) {
+                    (nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
+                    && nouvelleCarte.getValeur() <= cartes[indice].getValeur())) {
+                //System.out.println("la nouvelle carte est plus grande que la carte considérée car "+nouvelleCarte.getCouleur()
+                //+nouvelleCarte.getValeur()+" est plus grande que "+cartes[indice].getCouleur()+cartes[i].getValeur());
                 if(carteSelectionnee < indice) {
+                    //System.out.println("carteSelectionnee < indice");
                     if(i == 0) {
+                        //System.out.println("i == 0");
                         return 0;
                     }
+                    //System.out.println("i != 0");
                     if (cartes[i].getValeur() == -1) {
+                        //System.out.println("cartes[i].getValeur() == -1");
                         return i;
                     }
+                    //System.out.println("cartes[i].getValeur() != -1");
                     return i - 1;
                 }
+                //System.out.println("carteSelectionnee >= indice");
                 return i;
             }
         }
-        System.out.println("problème");
+        //System.out.println("problème");
         return 7;
     }
 
@@ -147,5 +171,13 @@ public class MainJoueur {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public void setCartes(Carte[] cartes) {
+        this.cartes = cartes;
+    }
+
+    public void setCarte(Carte carte, int i) {
+        cartes[i] = carte;
     }
 }
