@@ -47,9 +47,9 @@ public class MainJoueur {
 
     public void afficherMain() {
         for(int i = 0; i < 8; i++) {
-            root.getChildren().get(6 + i).setTranslateX(68*i-238);
-            root.getChildren().get(6 + i).setTranslateY(350);
-            ((ImageView) root.getChildren().get(6 + i)).setImage(cartes[i].getImage());
+            root.getChildren().get(16 + i).setTranslateX(68*i-238);
+            root.getChildren().get(16 + i).setTranslateY(350);
+            ((ImageView) root.getChildren().get(16 + i)).setImage(cartes[i].getImage());
         }
     }
 
@@ -110,13 +110,13 @@ public class MainJoueur {
         int indice;
         for(int i = 0; i < 8; i++) {
             //On récupère le bon indice
-            if(cartes[i].getValeur() == -1) {
-                //System.out.println("cartes[i].getValeur() == -1 car "+cartes[i].getValeur()+" = -1");
+            if(cartes[i].getValeur() == -1 && i < 7) {
                 indice = i + 1;
             } else {
-                //System.out.println("cartes[i].getValeur() != -1 car "+cartes[i].getValeur()+" != -1");
                 indice = i;
             }
+            System.out.println("La carte piochée est "+nouvelleCarte.getValeur()+nouvelleCarte.getCouleur()+
+                    " avec l'indice "+indice);
             //Si la nouvelle carte est plus grande que la carte considérée...
             if (nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
                     (nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
