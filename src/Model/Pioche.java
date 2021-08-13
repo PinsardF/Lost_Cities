@@ -13,8 +13,10 @@ public class Pioche {
     private List<Carte> cartes = new ArrayList<>();
     private double positionX;
     private double positionY;
+    private boolean derniereCarte;
 
     public Pioche(Pane root, double x, double y) {
+        this.derniereCarte = false;
         this.positionX = x;
         this.positionY = y;
         String[] couleurs = {"jaune","bleu","blanc","rouge","vert"};
@@ -57,5 +59,23 @@ public class Pioche {
 
     public double getPositionY() {
         return positionY;
+    }
+
+    public boolean isDerniereCarte() {
+        return derniereCarte;
+    }
+
+    public void setDerniereCarte(boolean derniereCarte) {
+        this.derniereCarte = derniereCarte;
+    }
+
+    public boolean uneCarteRestante() {
+        return cartes.size() == 0;
+    }
+
+    public void disparaitre(Pane root) {
+        File file = new File("./src/media/vide.png");
+        Image image = new Image(file.toURI().toString());
+        ((ImageView) root.getChildren().get(15)).setImage(image);
     }
 }

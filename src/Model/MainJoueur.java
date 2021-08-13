@@ -115,8 +115,8 @@ public class MainJoueur {
             } else {
                 indice = i;
             }
-            System.out.println("La carte piochée est "+nouvelleCarte.getValeur()+nouvelleCarte.getCouleur()+
-                    " avec l'indice "+indice);
+            //System.out.println("La carte piochée est "+nouvelleCarte.getValeur()+nouvelleCarte.getCouleur()+
+            //        " avec l'indice "+indice);
             //Si la nouvelle carte est plus grande que la carte considérée...
             if (nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
                     (nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()

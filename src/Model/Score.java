@@ -47,13 +47,9 @@ public class Score {
         } else {
             ((Text) root.getChildren().get(5+couleurId)).setFill(Color.RED);
         }
-        /*System.out.println(text);
-        System.out.println(((Text) root.getChildren().get(5)));*/
     }
 
-    /*
-    public void setText(String nouveauTexte) {
-        text = nouveauTexte;
+    public String getText() {
+        return  this.text;
     }
-    */
 }

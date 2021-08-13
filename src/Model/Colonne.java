@@ -50,6 +50,23 @@ public class Colonne {
         this.derniereValeur = carte.getValeur();
     }
 
+    public int getScore() {
+        //Si on n'a pas placé de carte, la colonne n'a aucune valeur
+        if (cartes.size() == 0) {
+            return 0;
+        }
+        int multiplicateur = 1;
+        int valeur = -20;
+        for(int i = 0; i < cartes.size(); i++) {
+            if (cartes.get(i).getValeur() == 0) {
+                multiplicateur++;
+            } else {
+                valeur += cartes.get(i).getValeur();
+            }
+        }
+        return (valeur * multiplicateur);
+    }
+
     public List<Carte> getCartes() {
         return cartes;
     }

@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,8 +49,6 @@ public class Main extends Application {
         defausses[2] = new Defausse(0.0,0.0,2,root);
         defausses[3] = new Defausse(100.0,0.0,3,root);
         defausses[4] = new Defausse(200.0,0.0,4,root);
-        defausses[2].ajouterCarte(new Carte(5,"jaune"));
-        defausses[2].afficherDefausse();
 
         //Création de la pioche et tirage des premières cartes
         Pioche pioche = new Pioche(root, -330, 0);
@@ -107,7 +106,11 @@ public class Main extends Application {
                         curseursDefausse[0].disparaitre(root);
                         colonnes[indice].afficherColonne();
                         afficherCurseurs(root, defausses, curseursDefausse);
-                        mainJoueur1.setEtat("pioche");
+                        if (pioche.isDerniereCarte()) {
+                            finDePartie(root, colonnes);
+                        } else {
+                            mainJoueur1.setEtat("pioche");
+                        }
                     });
                     carteTransition.play();
                 }
@@ -152,7 +155,11 @@ public class Main extends Application {
                         curseursDefausse[0].disparaitre(root);
                         defausses[indice].afficherDefausse();
                         afficherCurseurs(root, defausses, curseursDefausse);
-                        mainJoueur1.setEtat("pioche");
+                        if (pioche.isDerniereCarte()) {
+                            finDePartie(root, colonnes);
+                        } else {
+                            mainJoueur1.setEtat("pioche");
+                        }
                     });
                     carteTransition.play();
                 //Si on est en phase "piocher une carte"
@@ -245,6 +252,10 @@ public class Main extends Application {
             if (mainJoueur1.getEtat() == "pioche") {
                 mainJoueur1.setEtat("fin du tour");
                 Carte cartePiochée = pioche.piocher();
+                if (pioche.uneCarteRestante()) {
+                    pioche.setDerniereCarte(true);
+                    pioche.disparaitre(root);
+                }
                 piocherCarte(root, cartePiochée, mainJoueur1, pioche.getPositionX(), pioche.getPositionY());
                 File carteFileVide = new File("./src/media/vide.png");
                 Image imageVide = new Image(carteFileVide.toURI().toString());
@@ -252,7 +263,6 @@ public class Main extends Application {
                     ((ImageView) root.getChildren().get(j + 24)).setImage(imageVide);
                 }
                 mainJoueur1.setEtat("pose");
-                //pioche.etat();
             }
         });
 
@@ -267,12 +277,6 @@ public class Main extends Application {
         //24-29 : curseurs
         //30 : Transition
 
-        //0-4 : Défausses rouge, verte, jaune, blanche, bleue
-        //5 : Pioche
-        //6-13 : MainJoueur
-        //14-19 : curseurs
-        //20 : Transition
-
         //Etats de la main :
         //"pose"
         //"pioche"
@@ -281,6 +285,29 @@ public class Main extends Application {
         //PROCHAINE ETAPE : Gestion des colonnes
 
         primaryStage.show();
+    }
+
+    public void finDePartie(Pane root, Colonne[] colonnes) {
+        //Vidage de l'écran
+        File file = new File("./src/media/finDePartie.png");
+        Image image = new Image(file.toURI().toString());
+        BackgroundImage myBI= new BackgroundImage(image,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(myBI));
+        root.getChildren().clear();
+
+        //Affichage du texte
+        Text scoreFinal = new Text();
+        String message = "Score final : ";
+        int scoreTotal = 0;
+        for (Colonne colonne : colonnes) {
+            scoreTotal += colonne.getScore();
+        }
+        message += scoreTotal;
+        scoreFinal.setText(message);
+        root.getChildren().add(scoreFinal);
+        System.out.println("Fin de partie");
     }
 
     public void afficherCurseurs(Pane root, Defausse[] defausses, Curseur[] curseurs) {
@@ -366,8 +393,6 @@ public class Main extends Application {
             ((ImageView) root.getChildren().get(30)).setImage(imageVide);
             //On remet à zéro l'id de la carte sélectionnée de mainJoueur1
             mainJoueur.resetCarteSelectionee();
-
-            //Coucou Sako, si tu es un vrai stalker légendaire tu verras ça
             mainJoueur.afficherMain();
 
             /*
