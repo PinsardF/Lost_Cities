@@ -19,6 +19,72 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        //Création du menu principal
+        Pane root = new StackPane();
+        File file = new File("./src/media/menu.png");
+        Image image = new Image(file.toURI().toString());
+        BackgroundImage myBI= new BackgroundImage(image,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(myBI));
+        primaryStage.setTitle("Les Cités Perdues");
+        primaryStage.setScene(new Scene(root, 800, 800));
+
+        //Créations des boutons
+        ImageView singlePlayerButton = new ImageView();
+        singlePlayerButton.setId("singlePlayerButton");
+        singlePlayerButton.setTranslateX(0);
+        singlePlayerButton.setTranslateY(-100);
+        File singlePlayerFile = new File("./src/media/soloButton.png");
+        Image singlePlayerImage = new Image(singlePlayerFile.toURI().toString());
+        singlePlayerButton.setImage(singlePlayerImage);
+        root.getChildren().add(singlePlayerButton);
+
+        ImageView multiPlayerButton = new ImageView();
+        multiPlayerButton.setId("multiPlayerButton");
+        multiPlayerButton.setTranslateX(0);
+        multiPlayerButton.setTranslateY(0);
+        File multiPlayerFile = new File("./src/media/multiButton.png");
+        Image multiPlayerImage = new Image(multiPlayerFile.toURI().toString());
+        multiPlayerButton.setImage(multiPlayerImage);
+        root.getChildren().add(multiPlayerButton);
+
+        ImageView rulesButton = new ImageView();
+        rulesButton.setId("rulesButton");
+        rulesButton.setTranslateX(0);
+        rulesButton.setTranslateY(100);
+        File rulesFile = new File("./src/media/rulesButton.png");
+        Image rulesImage = new Image(rulesFile.toURI().toString());
+        rulesButton.setImage(rulesImage);
+        root.getChildren().add(rulesButton);
+
+        ImageView quitButton = new ImageView();
+        quitButton.setId("quitButton");
+        quitButton.setTranslateX(0);
+        quitButton.setTranslateY(200);
+        File quitFile = new File("./src/media/quitButton.png");
+        Image quitImage = new Image(quitFile.toURI().toString());
+        quitButton.setImage(quitImage);
+        root.getChildren().add(quitButton);
+
+        //Mise en place de l'événement "Cliquer sur un bouton"
+        ((ImageView) root.getChildren().get(0)).setOnMouseClicked( event -> {
+            play(primaryStage);
+        });
+        ((ImageView) root.getChildren().get(1)).setOnMouseClicked( event -> {
+            System.out.println("Mode multijoueur");
+        });
+        ((ImageView) root.getChildren().get(2)).setOnMouseClicked( event -> {
+            System.out.println("Règles");
+        });
+        ((ImageView) root.getChildren().get(3)).setOnMouseClicked( event -> {
+            System.exit(0);
+        });
+
+        primaryStage.show();
+    }
+
+    public void play(Stage primaryStage) {
         //Création du Background et de l'écran
         Pane root = new StackPane();
         File file = new File("./src/media/background.png");
