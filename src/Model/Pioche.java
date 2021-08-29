@@ -20,6 +20,8 @@ public class Pioche {
         this.positionX = x;
         this.positionY = y;
         String[] couleurs = {"jaune","bleu","blanc","rouge","vert"};
+        //Ligne pratique pour accéder vite à la fin de partie :
+        //String[] couleurs = {"jaune"};
         for(String couleur : couleurs) {
             for(int i = 0; i < 3; i++) {
                 this.cartes.add(new Carte(0,couleur));
@@ -76,6 +78,6 @@ public class Pioche {
     public void disparaitre(Pane root) {
         File file = new File("./src/media/vide.png");
         Image image = new Image(file.toURI().toString());
-        ((ImageView) root.getChildren().get(15)).setImage(image);
+        ((ImageView) root.lookup("#pioche")).setImage(image);
     }
 }

@@ -10,18 +10,20 @@ public class Score {
     private double positionX;
     private double positionY;
     private int couleurId;
+    private int joueurId;
     private String text;
     Pane root;
 
-    public Score(double x, double y, int couleur_id, Pane root) {
+    public Score(double x, double y, int couleur_id, int joueurId, Pane root) {
         this.root = root;
         positionX = x;
         positionY = y;
+        this.joueurId = joueurId;
         Text txt = new Text();
         txt.setTranslateX(x);
         txt.setTranslateY(y);
         couleurId = couleur_id;
-        txt.setId("score" + couleurId);
+        txt.setId("score" + couleurId + "j" + joueurId);
         text = "";
         txt.setText(text);
         root.getChildren().add(txt);
@@ -41,11 +43,14 @@ public class Score {
         if (multiplicateur > 1) {
             text += " (X" + multiplicateur + ")";
         }
-        ((Text) root.getChildren().get(5+couleurId)).setText(text);
+        //((Text) root.getChildren().get(5+couleurId)).setText(text);
+        ((Text) root.lookup("#score"+couleurId+"j"+joueurId)).setText(text);
         if (valeur >= 0) {
-            ((Text) root.getChildren().get(5+couleurId)).setFill(Color.BLACK);
+            //((Text) root.getChildren().get(5+couleurId)).setFill(Color.BLACK);
+            ((Text) root.lookup("#score"+couleurId+"j"+joueurId)).setFill(Color.BLACK);
         } else {
-            ((Text) root.getChildren().get(5+couleurId)).setFill(Color.RED);
+            //((Text) root.getChildren().get(5+couleurId)).setFill(Color.RED);
+            ((Text) root.lookup("#score"+couleurId+"j"+joueurId)).setFill(Color.RED);
         }
     }
 

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,22 +100,27 @@ public class Main extends Application {
         //Création des colonnes
         Colonne[] colonnes = new Colonne[5];
         for (int i = 0; i < 5; i++) {
-            colonnes[i] = new Colonne((100*i)-200, 180, i, root);
+            colonnes[i] = new Colonne((100*i)-200, 180, i, 1, root);
         }
 
         //Création des scores
         Score[] scores = new Score[5];
         for (int i = 0; i < 5; i++) {
-            scores[i] = new Score((100*i)-200,250,i,root);
+            scores[i] = new Score((100*i)-200,250,i,1 ,root);
         }
 
         //Création des Défausses
         Defausse[] defausses = new Defausse[5];
-        defausses[0] = new Defausse(-200.0,0.0,0,root);
-        defausses[1] = new Defausse(-100.0,0.0,1,root);
-        defausses[2] = new Defausse(0.0,0.0,2,root);
-        defausses[3] = new Defausse(100.0,0.0,3,root);
-        defausses[4] = new Defausse(200.0,0.0,4,root);
+        for (int i = 0; i < 5; i++) {
+            defausses[i] = new Defausse(100.0*i - 200.0,0.0,i,root);
+        }
+        /*
+        defausses[0] = new Defausse(-200.0,0.0,0,1, root);
+        defausses[1] = new Defausse(-100.0,0.0,1,1, root);
+        defausses[2] = new Defausse(0.0,0.0,2, 1,root);
+        defausses[3] = new Defausse(100.0,0.0,3,1,root);
+        defausses[4] = new Defausse(200.0,0.0,4,1,root);
+        */
 
         //Création de la pioche et tirage des premières cartes
         Pioche pioche = new Pioche(root, -330, 0);
@@ -123,7 +129,7 @@ public class Main extends Application {
         for(int i = 0; i < 8; i++) {
             tirage1[i] = pioche.piocher();
         }
-        MainJoueur mainJoueur1 = new MainJoueur(tirage1, root);
+        MainJoueur mainJoueur1 = new MainJoueur(tirage1, 1, root);
         mainJoueur1.trier();
         mainJoueur1.afficherMain();
 
@@ -136,7 +142,7 @@ public class Main extends Application {
         //Mise en place de l'événement "Cliquer sur une Colonne"
         for (int i = 0; i < 5; i++) {
             final int indice = i;
-            ((ImageView) root.getChildren().get(indice)).setOnMouseClicked(event -> {
+            ((ImageView) root.lookup("#colonne"+i+"j1")).setOnMouseClicked(event -> {
                 //Si on est en phase "placer une carte"
                 if (mainJoueur1.getCarteSelectionneeId() > -1 && mainJoueur1.getEtat() == "pose" &&
                         mainJoueur1.getCarteSelectionnee().getId_couleur() ==
@@ -152,7 +158,7 @@ public class Main extends Application {
                     //On fait disparaître la carte de la main
                     File carteFileVide = new File("./src/media/vide.png");
                     Image imageVide = new Image(carteFileVide.toURI().toString());
-                    ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).setImage(imageVide);
+                    ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).setImage(imageVide);
                     mainJoueur1.afficherMain();
                     //On retire les curseurs
                     curseursDefausse[0].disparaitre(root);
@@ -162,18 +168,18 @@ public class Main extends Application {
                     carteTransition.setDuration(Duration.seconds(0.4));
                     carteTransition.setToX(colonnes[indice].getPositionX());
                     carteTransition.setToY(colonnes[indice].getPositionY());
-                    double x = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).getTranslateX();
-                    double y = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).getTranslateY();
-                    ((ImageView) root.getChildren().get(24)).setTranslateX(x);
-                    ((ImageView) root.getChildren().get(24)).setTranslateY(y);
-                    ((ImageView) root.getChildren().get(24)).setImage(carteSelectionnee.getImage());
-                    carteTransition.setNode((ImageView) root.getChildren().get(24));
+                    double x = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateX();
+                    double y = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateY();
+                    ((ImageView) root.lookup("#curseur0")).setTranslateX(x);
+                    ((ImageView) root.lookup("#curseur0")).setTranslateY(y);
+                    ((ImageView) root.lookup("#curseur0")).setImage(carteSelectionnee.getImage());
+                    carteTransition.setNode((ImageView) root.lookup("#curseur0"));
                     carteTransition.setOnFinished(transitionEvent -> {
                         curseursDefausse[0].disparaitre(root);
                         colonnes[indice].afficherColonne();
                         afficherCurseurs(root, defausses, curseursDefausse);
                         if (pioche.isDerniereCarte()) {
-                            finDePartie(root, colonnes);
+                            finDePartie(root, colonnes, primaryStage);
                         } else {
                             mainJoueur1.setEtat("pioche");
                         }
@@ -186,7 +192,7 @@ public class Main extends Application {
         //Mise en place de l'événement "Cliquer sur une Défausse"
         for(int i = 0; i < 5; i++) {
             final int indice = i;
-            ((ImageView) root.getChildren().get(indice+10)).setOnMouseClicked(event -> {
+            ((ImageView) root.lookup("#defausse"+indice)).setOnMouseClicked(event -> {
                 //Si on est en phase "placer une carte"
                 if(mainJoueur1.getCarteSelectionneeId() > -1
                         && mainJoueur1.getEtat() == "pose" && mainJoueur1.getCarteSelectionnee().getId_couleur() ==
@@ -200,7 +206,7 @@ public class Main extends Application {
                     //On fait disparaître la carte de la main
                     File carteFileVide = new File("./src/media/vide.png");
                     Image imageVide = new Image(carteFileVide.toURI().toString());
-                    ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).setImage(imageVide);
+                    ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).setImage(imageVide);
                     mainJoueur1.afficherMain();
                     //On retire les curseurs
                     curseursDefausse[0].disparaitre(root);
@@ -211,18 +217,18 @@ public class Main extends Application {
                     carteTransition.setToX(defausses[indice].getPositionX());
                     carteTransition.setToY(defausses[indice].getPositionY());
                     //System.out.println(mainJoueur1.getCarteSelectionneeId());
-                    double x = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).getTranslateX();
-                    double y = ((ImageView) root.getChildren().get(mainJoueur1.getCarteSelectionneeId()+16)).getTranslateY();
-                    ((ImageView) root.getChildren().get(24)).setTranslateX(x);
-                    ((ImageView) root.getChildren().get(24)).setTranslateY(y);
-                    ((ImageView) root.getChildren().get(24)).setImage(carteImage);
-                    carteTransition.setNode((ImageView) root.getChildren().get(24));
+                    double x = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateX();
+                    double y = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateY();
+                    ((ImageView) root.lookup("#curseur0")).setTranslateX(x);
+                    ((ImageView) root.lookup("#curseur0")).setTranslateY(y);
+                    ((ImageView) root.lookup("#curseur0")).setImage(carteImage);
+                    carteTransition.setNode((ImageView) root.lookup("#curseur0"));
                     carteTransition.setOnFinished(transitionEvent -> {
                         curseursDefausse[0].disparaitre(root);
                         defausses[indice].afficherDefausse();
                         afficherCurseurs(root, defausses, curseursDefausse);
                         if (pioche.isDerniereCarte()) {
-                            finDePartie(root, colonnes);
+                            finDePartie(root, colonnes, primaryStage);
                         } else {
                             mainJoueur1.setEtat("pioche");
                         }
@@ -245,7 +251,7 @@ public class Main extends Application {
                     File carteFileVide = new File("./src/media/vide.png");
                     Image imageVide = new Image(carteFileVide.toURI().toString());
                     for (int j = 0 ; j < 6 ; j++) {
-                        ((ImageView) root.getChildren().get(j + 24)).setImage(imageVide);
+                        ((ImageView) root.lookup("#curseur"+j)).setImage(imageVide);
                     }
                     mainJoueur1.setEtat("pose");
                 }
@@ -253,9 +259,10 @@ public class Main extends Application {
         }
 
         //Mise en place de l'événement "Cliquer sur une carte"
-        for(int i = 6; i < 14; i++) {
+        //for(int i = 6; i < 14; i++) {
+        for (int i = 0; i < 8; i++) {
             final int indice = i;
-            ((ImageView) root.getChildren().get(i+10)).setOnMouseClicked(event -> {
+            ((ImageView) root.lookup("#mainJoueur"+indice+"j1")).setOnMouseClicked(event -> {
                 //Si on est en phase "placer une carte"
                 if(mainJoueur1.getEtat() == "pose") {
                     switch (event.getButton().name()) {
@@ -267,26 +274,27 @@ public class Main extends Application {
                                 if (mainJoueur1.getCarteSelectionneeId() !=
                                         Integer.parseInt(((ImageView) event.getSource()).getId().substring(10, 11))) {
                                     //On remet la carte précédente dans la main
-                                    ((ImageView) root.getChildren().get(16 + mainJoueur1.getCarteSelectionneeId())).setTranslateY(350.0);
+                                    ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).setTranslateY(350.0);
                                 }
                             }
                             //Et on sort la nouvelle
-                            ((ImageView) root.getChildren().get((Integer.parseInt(((ImageView) event.getSource()).getId().substring(10, 11))) + 16)).setTranslateY(300.0);
+                            String nouvelleCarteId = ((ImageView) event.getSource()).getId().substring(10, 11);
+                            ((ImageView) root.lookup("#mainJoueur"+nouvelleCarteId+"j1")).setTranslateY(300.0);
 
                             //On récupère la couleur de la carte cliquée
                             Carte carte;
                             int couleur;
-                            double x, y;
-                            carte = mainJoueur1.getCarte(Integer.parseInt(((ImageView) root.getChildren().get(indice+10)).getId().substring(10, 11)));
+                            //carte = mainJoueur1.getCarte(Integer.parseInt(((ImageView) root.getChildren().get(indice+10)).getId().substring(10, 11)));
+                            carte = mainJoueur1.getCarte(Integer.parseInt(nouvelleCarteId));
                             couleur = carte.getId_couleur();
                             //On retire les curseurs
                             curseursDefausse[0].disparaitre(root);
                             curseursDefausse[1].disparaitre(root);
                             //On place le curseur sur la bonne Défausse
-                            curseursDefausse[0].afficher(root, root.getChildren().get(couleur+10).getTranslateX(), root.getChildren().get(couleur+10).getTranslateY());
+                            curseursDefausse[0].afficher(root, root.lookup("#defausse"+couleur).getTranslateX(), root.lookup("#defausse"+couleur).getTranslateY());
                             //On place un curseur sur la bonne colonne
                             if (carte.getValeur() >= colonnes[carte.getId_couleur()].getDerniereValeur()) {
-                                curseursDefausse[1].afficher(root, root.getChildren().get(couleur).getTranslateX(), root.getChildren().get(couleur).getTranslateY());
+                                curseursDefausse[1].afficher(root, root.lookup("#colonne"+couleur+"j1").getTranslateX(), root.lookup("#colonne"+couleur+"j1").getTranslateY());
                             }
                             //On met mainJoueur1.carteSeléctionnéeId à la bonne valeur
                             mainJoueur1.setCarteSelectionnee(Integer.parseInt(((ImageView) event.getSource()).getId().substring(10, 11)));
@@ -299,7 +307,7 @@ public class Main extends Application {
                                 curseursDefausse[0].disparaitre(root);
                                 curseursDefausse[1].disparaitre(root);
                                 //Et on rentre la carte précédemment cliquée
-                                ((ImageView) root.getChildren().get(16 + mainJoueur1.getCarteSelectionneeId())).setTranslateY(350.0);
+                                ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).setTranslateY(350.0);
                                 mainJoueur1.setCarteSelectionnee(-1);
                             }
                             break;
@@ -314,7 +322,7 @@ public class Main extends Application {
         root.getChildren().add(transitionImage);
 
         //Mise en place de l'événement "Cliquer sur la pioche"
-        ((ImageView) root.getChildren().get(15)).setOnMouseClicked(event -> {
+        ((ImageView) root.lookup("#pioche")).setOnMouseClicked(event -> {
             if (mainJoueur1.getEtat() == "pioche") {
                 mainJoueur1.setEtat("fin du tour");
                 Carte cartePiochée = pioche.piocher();
@@ -326,7 +334,7 @@ public class Main extends Application {
                 File carteFileVide = new File("./src/media/vide.png");
                 Image imageVide = new Image(carteFileVide.toURI().toString());
                 for (int j = 0 ; j < 6 ; j++) {
-                    ((ImageView) root.getChildren().get(j + 24)).setImage(imageVide);
+                    ((ImageView) root.lookup("#curseur"+j)).setImage(imageVide);
                 }
                 mainJoueur1.setEtat("pose");
             }
@@ -353,7 +361,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void finDePartie(Pane root, Colonne[] colonnes) {
+    public void finDePartie(Pane root, Colonne[] colonnes, Stage primaryStage) {
         //Vidage de l'écran
         File file = new File("./src/media/finDePartie.png");
         Image image = new Image(file.toURI().toString());
@@ -374,6 +382,20 @@ public class Main extends Application {
         scoreFinal.setText(message);
         root.getChildren().add(scoreFinal);
         System.out.println("Fin de partie");
+
+        //Bouton Retour vers le menu
+        ImageView menuButton = new ImageView();
+        menuButton.setId("menuButton");
+        menuButton.setTranslateX(0);
+        menuButton.setTranslateY(-100);
+        File menuFile = new File("./src/media/soloButton.png");
+        Image menuImage = new Image(menuFile.toURI().toString());
+        menuButton.setImage(menuImage);
+        root.getChildren().add(menuButton);
+
+        menuButton.setOnMouseClicked(event -> {
+            start(primaryStage);
+        });
     }
 
     public void afficherCurseurs(Pane root, Defausse[] defausses, Curseur[] curseurs) {
@@ -428,7 +450,7 @@ public class Main extends Application {
                 TranslateTransition mainTransition = new TranslateTransition();
                 mainTransition.setDuration(Duration.seconds(0.2));
                 mainTransition.setByX(X);
-                mainTransition.setNode(root.getChildren().get(cartesADeplacer.get(k) + 16));
+                mainTransition.setNode(root.lookup("#mainJoueur"+cartesADeplacer.get(k)+"j1"));
                 mainTransition.play();
             }
             //On ajoute à la bonne place la carte piochée
@@ -443,41 +465,27 @@ public class Main extends Application {
         TranslateTransition carteTransition = new TranslateTransition();
         carteTransition.setDuration(Duration.seconds(0.4));
         //On définit l'emplacement de départ...
-        ((ImageView) root.getChildren().get(30)).setTranslateX(defausseX);
-        ((ImageView) root.getChildren().get(30)).setTranslateY(defausseY);
+        ((ImageView) root.lookup("#transition")).setTranslateX(defausseX);
+        ((ImageView) root.lookup("#transition")).setTranslateY(defausseY);
         //Et l'emplacement d'arrivée
-        carteTransition.setToX(root.getChildren().get(indiceCarte+16).getTranslateX());
+        carteTransition.setToX(root.lookup("#mainJoueur"+indiceCarte+"j1").getTranslateX());
         carteTransition.setToY(350);
         //On met l'image de la carte sur le node "transition"
-        ((ImageView) root.getChildren().get(30)).setImage(carteDeplacee.getImage());
-        carteTransition.setNode(root.getChildren().get(30));
+        ((ImageView) root.lookup("#transition")).setImage(carteDeplacee.getImage());
+        carteTransition.setNode(root.lookup("#transition"));
         carteTransition.setOnFinished(transitionEvent -> {
             //On retire le node transition
-            root.getChildren().get(30).setTranslateY(-150);
+            root.lookup("#transition").setTranslateY(-150);
             File carteFileVide = new File("./src/media/vide.png");
             Image imageVide = new Image(carteFileVide.toURI().toString());
-            ((ImageView) root.getChildren().get(30)).setImage(imageVide);
+            ((ImageView) root.lookup("#transition")).setImage(imageVide);
             //On remet à zéro l'id de la carte sélectionnée de mainJoueur1
             mainJoueur.resetCarteSelectionee();
             mainJoueur.afficherMain();
 
-            /*
-            for (int c = 6; c < 14; c++) {
-                System.out.println(c+":"+root.getChildren().get(c+10).getTranslateX());
-            }
-            System.out.println(20+":"+root.getChildren().get(30).getTranslateX());
-            */
-
         });
         carteTransition.play();
         mainJoueur.setEtat("fin du tour");
-
-        /*
-        System.out.println("MAINJOUEUR FIN PIOCHER");
-        for (Carte carte : mainJoueur.getCartes()) {
-            System.out.println(carte.getValeur()+carte.getCouleur());
-        }
-        */
     }
 
     public static void main(String[] args) {

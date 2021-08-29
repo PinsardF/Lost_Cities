@@ -34,11 +34,13 @@ public class Defausse {
 
     public void afficherDefausse() {
         if(cartes.size() > 0) {
-            ((ImageView) root.getChildren().get(couleurId+10)).setImage(cartes.get(cartes.size() - 1).getImage());
+            //((ImageView) root.getChildren().get(couleurId+10)).setImage(cartes.get(cartes.size() - 1).getImage());
+            ((ImageView) root.lookup("#defausse"+couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
         } else {
             File carteFile = new File("./src/media/defausse" + couleurId + ".png");
             Image image = new Image(carteFile.toURI().toString());
-            ((ImageView) root.getChildren().get(couleurId+10)).setImage(image);
+            //((ImageView) root.getChildren().get(couleurId+10)).setImage(image);
+            ((ImageView) root.lookup("#defausse"+couleurId)).setImage(image);
         }
     }
 

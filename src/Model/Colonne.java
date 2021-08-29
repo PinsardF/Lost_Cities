@@ -14,17 +14,19 @@ public class Colonne {
     private double positionX;
     private double positionY;
     private int couleurId;
+    private int joueurId;
     Pane root;
 
-    public Colonne(double x, double y, int couleurId, Pane root) {
+    public Colonne(double x, double y, int couleurId, int joueurId, Pane root) {
         positionX = x;
         positionY = y;
         this.couleurId = couleurId;
         this.root = root;
+        this.joueurId = joueurId;
         ImageView iv = new ImageView();
         iv.setTranslateX(x);
         iv.setTranslateY(y);
-        iv.setId("colonne" + couleurId);
+        iv.setId("colonne" + couleurId + "j" + joueurId);
         String url = "./src/media/vide.png";
         //String url = "./src/media/"+couleurId+"rouge.png";
         File carteFile = new File(url);
@@ -37,11 +39,13 @@ public class Colonne {
 
     public void afficherColonne() {
         if (cartes.size() > 0) {
-            ((ImageView) root.getChildren().get(couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
+            //((ImageView) root.getChildren().get(couleurId)).setImage(cartes.get(cartes.size() - 1).getImage());
+            ((ImageView) root.lookup("#colonne"+couleurId+"j"+joueurId)).setImage(cartes.get(cartes.size() - 1).getImage());
         } else {
             File carteFile = new File("./src/media/vide.png");
             Image image = new Image(carteFile.toURI().toString());
-            ((ImageView) root.getChildren().get(couleurId)).setImage(image);
+            //((ImageView) root.getChildren().get(couleurId)).setImage(image);
+            ((ImageView) root.lookup("#colonne"+couleurId+"j"+joueurId)).setImage(image);
         }
     }
 
