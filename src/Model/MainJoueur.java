@@ -13,19 +13,29 @@ public class MainJoueur {
     private int carteSelectionnee;
     private String etat;
     private int joueurId;
+    private int sign;
 
     public MainJoueur(Carte[] init, int joueurId, Pane root) {
-        this.etat = "pose";
+        if (joueurId == 2) {
+            this.etat = "fini";
+        } else {
+            this.etat = "pose";
+        }
         this.cartes = init;
         this.joueurId = joueurId;
         this.root = root;
         carteSelectionnee = -1;
+        //sign permet de mettre les positons en négatif pour le joueur 2
+        this.sign = 1;
+        if (this.joueurId == 2) {
+            sign = -1;
+        }
         ImageView[] iv = new ImageView[8];
         for(int i=0 ; i<8 ; i++) {
             iv[i] = new ImageView();
             iv[i].setId("mainJoueur"+i+"j"+joueurId);
             iv[i].setTranslateX(68*i-238);
-            iv[i].setTranslateY(350);
+            iv[i].setTranslateY(350 * sign);
             iv[i].setImage(cartes[i].getImage());
             root.getChildren().add(iv[i]);
         }
@@ -53,7 +63,7 @@ public class MainJoueur {
             //root.getChildren().get(16 + i).setTranslateY(350);
             //((ImageView) root.getChildren().get(16 + i)).setImage(cartes[i].getImage());
             root.lookup("#mainJoueur"+i+"j"+joueurId).setTranslateX(68*i-238);
-            root.lookup("#mainJoueur"+i+"j"+joueurId).setTranslateY(350);
+            root.lookup("#mainJoueur"+i+"j"+joueurId).setTranslateY(350 * sign);
             ((ImageView) root.lookup("#mainJoueur"+i+"j"+joueurId)).setImage(cartes[i].getImage());
         }
     }
