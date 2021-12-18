@@ -14,6 +14,7 @@ public class MainJoueur {
     private String etat;
     private int joueurId;
     private int sign;
+    private Boolean fini;
 
     public MainJoueur(Carte[] init, int joueurId, Pane root) {
         if (joueurId == 2) {
@@ -22,6 +23,7 @@ public class MainJoueur {
             this.etat = "pose";
         }
         this.cartes = init;
+        this.fini = false;
         this.joueurId = joueurId;
         this.root = root;
         carteSelectionnee = -1;
@@ -105,19 +107,6 @@ public class MainJoueur {
     }
 
     public int ajouterCarte(Carte nouvelleCarte) {
-        /*
-        int indice = getIndice(nouvelleCarte);
-        System.out.println("Bonjour "+this.getCarteSelectionneeId());
-        for (int i = 0; i < cartes.length; i++) {
-            if (cartes[i].getValeur() == -1) {
-                cartes[i] = nouvelleCarte;
-                return indice;
-            }
-        }
-        System.out.println("Problème ajouterCarte");
-        return indice;
-        */
-        //cartes[this.getCarteSelectionneeId()] = nouvelleCarte;
         return getIndice(nouvelleCarte);
     }
 
@@ -195,4 +184,13 @@ public class MainJoueur {
     public void setCarte(Carte carte, int i) {
         cartes[i] = carte;
     }
+
+    public Boolean getFini() {
+        return fini;
+    }
+
+    public void setFini(Boolean fini) {
+        this.fini = fini;
+    }
+
 }

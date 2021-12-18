@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/media/menubutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/CompteurPioche.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lost_Cities/Model/Pioche.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lost_Cities/Model/Pioche.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lost_Cities/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lost_Cities/sample/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/MainJoueur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/MainJoueur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Pioche.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Pioche.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -63,10 +62,10 @@
     <session id="803105581">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="29" />
+          <entry key="project.closed" value="30" />
           <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.10" value="6" />
+          <entry key="project.open.time.10" value="7" />
           <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
@@ -75,32 +74,32 @@
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="6" />
-          <entry key="project.opened" value="30" />
+          <entry key="project.opened" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="6" />
-          <entry key="java" value="32579" />
+          <entry key="java" value="35251" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="32579" />
+          <entry key="JAVA" value="35251" />
           <entry key="PLAIN_TEXT" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="java" value="20" />
+          <entry key="java" value="23" />
           <entry key="png" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="3" />
-          <entry key="JAVA" value="20" />
+          <entry key="JAVA" value="23" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -114,17 +113,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="579" column="50" selection-start-line="579" selection-start-column="50" selection-end-line="579" selection-end-column="50" />
+            <state relative-caret-position="198">
+              <caret line="262" column="92" selection-start-line="262" selection-start-column="92" selection-end-line="262" selection-end-column="92" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7076#10226#0" />
-                <element signature="e#10393#13503#0" />
-                <element signature="e#13619#21847#0" />
-                <element signature="e#22079#29133#0" />
-                <element signature="e#25770#29174#0" />
-                <element signature="e#37231#37232#0" expanded="true" />
-                <element signature="e#37259#37260#0" expanded="true" />
+                <element signature="e#7616#11185#0" />
+                <element signature="e#11464#15198#0" />
+                <element signature="e#15656#26985#0" />
+                <element signature="e#22199#25710#0" />
+                <element signature="e#27461#30860#0" />
+                <element signature="method#finDePartie#1;class#Main#0" />
+                <element signature="e#46551#46552#0" expanded="true" />
+                <element signature="e#46579#46580#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/CompteurPioche.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -133,14 +145,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/MainJoueur.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+            <state relative-caret-position="294">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1211#1212#0" expanded="true" />
                 <element signature="e#1245#1246#0" expanded="true" />
                 <element signature="e#1281#1282#0" expanded="true" />
                 <element signature="e#1318#1319#0" expanded="true" />
+                <element signature="e#3428#3429#0" expanded="true" />
+                <element signature="e#3475#3476#0" expanded="true" />
                 <element signature="e#5776#5777#0" expanded="true" />
                 <element signature="e#5816#5817#0" expanded="true" />
                 <element signature="e#5859#5860#0" expanded="true" />
@@ -159,30 +173,10 @@
                 <element signature="e#6392#6393#0" expanded="true" />
                 <element signature="e#6440#6441#0" expanded="true" />
                 <element signature="e#6473#6474#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Colonne.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Score.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="52" column="34" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#6109#6110#0" expanded="true" />
+                <element signature="e#6143#6144#0" expanded="true" />
+                <element signature="e#6198#6199#0" expanded="true" />
+                <element signature="e#6244#6245#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -213,10 +207,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Carte.java">
+        <entry file="file://$PROJECT_DIR$/src/Model/Pioche.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="14" selection-start-column="14" selection-end-column="14" />
+            <state relative-caret-position="-170">
+              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -225,10 +219,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Pioche.java">
+        <entry file="file://$PROJECT_DIR$/src/Model/Carte.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-289">
-              <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+            <state relative-caret-position="204">
+              <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -247,11 +241,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Cliquer sur un</find>
-      <find>Sys</find>
-      <find>System</find>
-      <find>curseursdefausse[1</find>
-      <find>system.out</find>
       <find>cliquer sur une co</find>
       <find>Pioche p</find>
       <find>La carte piochée e</find>
@@ -277,6 +266,11 @@
       <find>menubutt</find>
       <find>piocherCarte(</find>
       <find>piocherCarte</find>
+      <find>compteurp</find>
+      <find>whoIsPlaying</find>
+      <find>.setEtat</find>
+      <find>compteurpioche.update</find>
+      <find>finde</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -296,8 +290,9 @@
         <option value="$PROJECT_DIR$/src/Model/Score.java" />
         <option value="$PROJECT_DIR$/src/Model/Curseur.java" />
         <option value="$PROJECT_DIR$/src/Model/Defausse.java" />
-        <option value="$PROJECT_DIR$/src/Model/Pioche.java" />
         <option value="$PROJECT_DIR$/src/Model/MainJoueur.java" />
+        <option value="$PROJECT_DIR$/src/Model/CompteurPioche.java" />
+        <option value="$PROJECT_DIR$/src/Model/Pioche.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
       </list>
     </option>
@@ -318,7 +313,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -336,18 +330,13 @@
               <item name="Lost_Cities" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lost_Cities" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lost_Cities" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lost_Cities" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -359,7 +348,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1631035203993" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1639869573179" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../libraries/javafx-sdk-11.0.2/lib" />
     <property name="project.structure.last.edited" value="Project" />
@@ -488,7 +477,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.3147651" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.31946307" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -589,16 +578,6 @@
     <entry file="file://$PROJECT_DIR$/src/media/background.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Score.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="52" column="34" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Defausse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -619,26 +598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Carte.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="14" selection-start-column="14" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Pioche.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-289">
-          <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Colonne.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -649,16 +608,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Score.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="49" column="12" lean-forward="true" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Carte.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/CompteurPioche.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/MainJoueur.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state relative-caret-position="294">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1211#1212#0" expanded="true" />
             <element signature="e#1245#1246#0" expanded="true" />
             <element signature="e#1281#1282#0" expanded="true" />
             <element signature="e#1318#1319#0" expanded="true" />
+            <element signature="e#3428#3429#0" expanded="true" />
+            <element signature="e#3475#3476#0" expanded="true" />
             <element signature="e#5776#5777#0" expanded="true" />
             <element signature="e#5816#5817#0" expanded="true" />
             <element signature="e#5859#5860#0" expanded="true" />
@@ -677,23 +668,38 @@
             <element signature="e#6392#6393#0" expanded="true" />
             <element signature="e#6440#6441#0" expanded="true" />
             <element signature="e#6473#6474#0" expanded="true" />
+            <element signature="e#6109#6110#0" expanded="true" />
+            <element signature="e#6143#6144#0" expanded="true" />
+            <element signature="e#6198#6199#0" expanded="true" />
+            <element signature="e#6244#6245#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Pioche.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="579" column="50" selection-start-line="579" selection-start-column="50" selection-end-line="579" selection-end-column="50" />
+        <state relative-caret-position="198">
+          <caret line="262" column="92" selection-start-line="262" selection-start-column="92" selection-end-line="262" selection-end-column="92" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7076#10226#0" />
-            <element signature="e#10393#13503#0" />
-            <element signature="e#13619#21847#0" />
-            <element signature="e#22079#29133#0" />
-            <element signature="e#25770#29174#0" />
-            <element signature="e#37231#37232#0" expanded="true" />
-            <element signature="e#37259#37260#0" expanded="true" />
+            <element signature="e#7616#11185#0" />
+            <element signature="e#11464#15198#0" />
+            <element signature="e#15656#26985#0" />
+            <element signature="e#22199#25710#0" />
+            <element signature="e#27461#30860#0" />
+            <element signature="method#finDePartie#1;class#Main#0" />
+            <element signature="e#46551#46552#0" expanded="true" />
+            <element signature="e#46579#46580#0" expanded="true" />
           </folding>
         </state>
       </provider>

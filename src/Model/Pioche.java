@@ -19,14 +19,16 @@ public class Pioche {
         this.derniereCarte = false;
         this.positionX = x;
         this.positionY = y;
-        String[] couleurs = {"jaune","bleu","blanc","rouge","vert"};
+        //String[] couleurs = {"jaune","bleu","blanc","rouge","vert"};
+        String[] couleurs = {"jaune", "bleu"};
         //Ligne pratique pour accéder vite à la fin de partie :
         //String[] couleurs = {"jaune"};
         for(String couleur : couleurs) {
             for(int i = 0; i < 3; i++) {
                 this.cartes.add(new Carte(0,couleur));
             }
-            for(int i = 0; i < 10; i++) {
+            for(int i = 0; i < 6; i++) {
+            //for(int i = 0; i < 10; i++) {
                 this.cartes.add(new Carte(i+1, couleur));
             }
         }
@@ -55,6 +57,8 @@ public class Pioche {
         }
     }
 
+    public boolean estVide () {return this.cartes.size() == 0; }
+
     public double getPositionX() {
         return positionX;
     }
@@ -70,6 +74,8 @@ public class Pioche {
     public void setDerniereCarte(boolean derniereCarte) {
         this.derniereCarte = derniereCarte;
     }
+
+    public int getNombreCartes() { return this.cartes.size(); }
 
     public boolean uneCarteRestante() {
         return cartes.size() == 0;
