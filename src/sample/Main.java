@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -141,13 +142,6 @@ public class Main extends Application {
         for (int i = 0; i < 5; i++) {
             defausses[i] = new Defausse(100.0 * i - 200.0, 0.0, i, root);
         }
-        /*
-        defausses[0] = new Defausse(-200.0,0.0,0,1, root);
-        defausses[1] = new Defausse(-100.0,0.0,1,1, root);
-        defausses[2] = new Defausse(0.0,0.0,2, 1,root);
-        defausses[3] = new Defausse(100.0,0.0,3,1,root);
-        defausses[4] = new Defausse(200.0,0.0,4,1,root);
-        */
 
         //Création de la pioche et tirage des premières cartes
         Pioche pioche = new Pioche(root, -330, 0);
@@ -179,6 +173,7 @@ public class Main extends Application {
             mainJoueur2.trier();
             mainJoueur2.afficherMain();
             mainJoueurs[1] = mainJoueur2;
+            retournerMain(root, mainJoueur2, false);
         }
 
         //On initialise correctement le compteur du nombre de cartes
@@ -245,6 +240,8 @@ public class Main extends Application {
                                 mainJoueur1.setFini(true);
                                 mainJoueur1.setEtat("fin du tour");
                                 mainJoueur2.setEtat("pose");
+                                retournerMain(root, mainJoueur1, false);
+                                retournerMain(root, mainJoueur2, true);
                             } else {
                                 mainJoueur1.setEtat("pioche");
                             }
@@ -305,6 +302,8 @@ public class Main extends Application {
                                 mainJoueur2.setFini(true);
                                 mainJoueur1.setEtat("pose");
                                 mainJoueur2.setEtat("fin du tour");
+                                retournerMain(root, mainJoueur2, false);
+                                retournerMain(root, mainJoueur1, true);
                             } else {
                                 mainJoueur2.setEtat("pioche");
                             }
@@ -342,7 +341,6 @@ public class Main extends Application {
                     carteTransition.setDuration(Duration.seconds(0.4));
                     carteTransition.setToX(defausses[indice].getPositionX());
                     carteTransition.setToY(defausses[indice].getPositionY());
-                    //System.out.println(mainJoueur1.getCarteSelectionneeId());
                     double x = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateX();
                     double y = ((ImageView) root.lookup("#mainJoueur"+mainJoueur1.getCarteSelectionneeId()+"j1")).getTranslateY();
                     ((ImageView) root.lookup("#curseur0")).setTranslateX(x);
@@ -368,6 +366,8 @@ public class Main extends Application {
                                 mainJoueur1.setFini(true);
                                 mainJoueur2.setEtat("pose");
                                 mainJoueur1.setEtat("fin du tour");
+                                retournerMain(root, mainJoueur1, false);
+                                retournerMain(root, mainJoueur2, true);
                             } else {
                                 mainJoueur1.setEtat("pioche");
                             }
@@ -382,7 +382,7 @@ public class Main extends Application {
                     double defausseY = defausses[indice].getPositionY();
                     Carte carteDeplacee = defausses[indice].piocher();
                     //On déplace la carte
-                    piocherCarte(root, carteDeplacee, mainJoueur1, defausseX, defausseY, 1);
+                    piocherCarte(root, carteDeplacee, mainJoueur1, mainJoueur2,defausseX, defausseY, 1);
                     defausses[indice].afficherDefausse();
 
                     //On supprime les curseurs
@@ -431,7 +431,6 @@ public class Main extends Application {
                         carteTransition.setDuration(Duration.seconds(0.4));
                         carteTransition.setToX(defausses[indice].getPositionX());
                         carteTransition.setToY(defausses[indice].getPositionY());
-                        //System.out.println(mainJoueur1.getCarteSelectionneeId());
                         double x = ((ImageView) root.lookup("#mainJoueur" + mainJoueur2.getCarteSelectionneeId() + "j2")).getTranslateX();
                         double y = ((ImageView) root.lookup("#mainJoueur" + mainJoueur2.getCarteSelectionneeId() + "j2")).getTranslateY();
                         ((ImageView) root.lookup("#curseur0")).setTranslateX(x);
@@ -457,6 +456,8 @@ public class Main extends Application {
                                     mainJoueur2.setFini(true);
                                     mainJoueur1.setEtat("pose");
                                     mainJoueur2.setEtat("fin du tour");
+                                    retournerMain(root, mainJoueur1, true);
+                                    retournerMain(root, mainJoueur2, false);
                                 } else {
                                     mainJoueur2.setEtat("pioche");
                                 }
@@ -472,7 +473,7 @@ public class Main extends Application {
                     double defausseY = defausses[indice].getPositionY();
                     Carte carteDeplacee = defausses[indice].piocher();
                     //On déplace la carte
-                    piocherCarte(root, carteDeplacee, mainJoueur2, defausseX, defausseY, 2);
+                    piocherCarte(root, carteDeplacee, mainJoueur2, mainJoueur1, defausseX, defausseY, 2);
                     defausses[indice].afficherDefausse();
 
                     //On supprime les curseur
@@ -614,7 +615,7 @@ public class Main extends Application {
                     pioche.setDerniereCarte(true);
                     pioche.disparaitre(root);
                 }
-                piocherCarte(root, cartePiochée, mainJoueur1, pioche.getPositionX(), pioche.getPositionY(), 1);
+                piocherCarte(root, cartePiochée, mainJoueur1, mainJoueur2, pioche.getPositionX(), pioche.getPositionY(), 1);
                 compteurPioche.update(pioche.getNombreCartes());
                 File carteFileVide = new File("./src/media/vide.png");
                 Image imageVide = new Image(carteFileVide.toURI().toString());
@@ -623,7 +624,14 @@ public class Main extends Application {
                 }
                 //Gestion de la fin de tour
                 if (playersCount == 1) {
-                    finDePartie(root, colonnes, primaryStage);
+                    if (mainJoueur1.getFini()) {
+                        finDePartie(root, colonnes, primaryStage);
+                    } else if (pioche.estVide()) {
+                        mainJoueur1.setFini(true);
+                        mainJoueur1.setEtat("pose");
+                    } else {
+                        mainJoueur1.setEtat("pose");
+                    }
                 }
                 else {
                     mainJoueur1.setEtat("fini");
@@ -636,7 +644,7 @@ public class Main extends Application {
                     pioche.setDerniereCarte(true);
                     pioche.disparaitre(root);
                 }
-                piocherCarte(root, cartePiochée, mainJoueur2, pioche.getPositionX(), pioche.getPositionY(), 2);
+                piocherCarte(root, cartePiochée, mainJoueur2, mainJoueur1, pioche.getPositionX(), pioche.getPositionY(), 2);
                 compteurPioche.update(pioche.getNombreCartes());
                 File carteFileVide = new File("./src/media/vide.png");
                 Image imageVide = new Image(carteFileVide.toURI().toString());
@@ -674,7 +682,7 @@ public class Main extends Application {
 
     public void finDePartie(Pane root, Colonne[] colonnes, Colonne[] colonnesJ2, Stage primaryStage) {
         //Vidage de l'écran
-        File file = new File("./src/media/finDePartie.png");
+        File file = new File("./src/media/ecranVictoire.png");
         Image image = new Image(file.toURI().toString());
         BackgroundImage myBI= new BackgroundImage(image,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -685,16 +693,22 @@ public class Main extends Application {
         //Affichage du texte
         Text scoreFinal = new Text();
         scoreFinal.setTranslateX(0);
-        scoreFinal.setTranslateY(0);
+        scoreFinal.setTranslateY(-100);
+        scoreFinal.setStyle("-fx-font-weight: bold");
+        scoreFinal.setFont(new Font(50));
         Text scoreJ1 = new Text();
         scoreJ1.setTranslateX(0);
-        scoreJ1.setTranslateY(20);
+        scoreJ1.setTranslateY(-30);
+        scoreJ1.setFont(new Font(28));
         Text scoreJ2 = new Text();
         scoreJ2.setTranslateX(0);
-        scoreJ2.setTranslateY(40);
+        scoreJ2.setTranslateY(0);
+        scoreJ2.setFont(new Font(28));
         Text gagnant = new Text();
         gagnant.setTranslateX(0);
-        gagnant.setTranslateY(60);
+        gagnant.setTranslateY(100);
+        gagnant.setStyle("-fx-font-style: italic");
+        gagnant.setFont(new Font(32));
 
         scoreFinal.setText("TABLEAU DES SCORES");
         int scoreTotalJ1 = 0;
@@ -719,13 +733,12 @@ public class Main extends Application {
         root.getChildren().add(scoreJ1);
         root.getChildren().add(scoreJ2);
         root.getChildren().add(gagnant);
-        System.out.println("Fin de partie");
 
         //Bouton Retour vers le menu
         ImageView menuButton = new ImageView();
         menuButton.setId("menuButton");
         menuButton.setTranslateX(0);
-        menuButton.setTranslateY(-100);
+        menuButton.setTranslateY(150);
         File menuFile = new File("./src/media/menuButton.png");
         Image menuImage = new Image(menuFile.toURI().toString());
         menuButton.setImage(menuImage);
@@ -738,7 +751,7 @@ public class Main extends Application {
 
     public void finDePartie(Pane root, Colonne[] colonnes, Stage primaryStage) {
         //Vidage de l'écran
-        File file = new File("./src/media/finDePartie.png");
+        File file = new File("./src/media/ecranVictoire.png");
         Image image = new Image(file.toURI().toString());
         BackgroundImage myBI= new BackgroundImage(image,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -755,14 +768,16 @@ public class Main extends Application {
         }
         message += scoreTotal;
         scoreFinal.setText(message);
+        scoreFinal.setStyle("-fx-font-weight: bold");
+        scoreFinal.setFont(new Font(40));
+        scoreFinal.setTranslateY(-70);
         root.getChildren().add(scoreFinal);
-        System.out.println("Fin de partie");
 
         //Bouton Retour vers le menu
         ImageView menuButton = new ImageView();
         menuButton.setId("menuButton");
         menuButton.setTranslateX(0);
-        menuButton.setTranslateY(-100);
+        menuButton.setTranslateY(100);
         File menuFile = new File("./src/media/menuButton.png");
         Image menuImage = new Image(menuFile.toURI().toString());
         menuButton.setImage(menuImage);
@@ -782,7 +797,7 @@ public class Main extends Application {
         curseurs[5].afficher(root, -330, 0);
     }
 
-    public void piocherCarte(Pane root, Carte carteDeplacee, MainJoueur mainJoueur, double defausseX, double defausseY, int joueur) {
+    public void piocherCarte(Pane root, Carte carteDeplacee, MainJoueur mainJoueur, MainJoueur mainJoueurAutre, double defausseX, double defausseY, int joueur) {
         int indiceCarte = mainJoueur.ajouterCarte(carteDeplacee);
         if (indiceCarte != mainJoueur.getCarteSelectionneeId()) {
             List<Integer> cartesADeplacer = new ArrayList<>();
@@ -856,10 +871,26 @@ public class Main extends Application {
             //On remet à zéro l'id de la carte sélectionnée de mainJoueur1
             mainJoueur.resetCarteSelectionee();
             mainJoueur.afficherMain();
+            retournerMain(root, mainJoueur, false);
+            retournerMain(root, mainJoueurAutre, true);
 
         });
         carteTransition.play();
         mainJoueur.setEtat("fin du tour");
+    }
+
+    public void retournerMain(Pane root, MainJoueur mainJoueur, Boolean cache) {
+        //Si les cartes sont visibles on les cache
+        if (!cache) {
+            File carteFileVide = new File("./src/media/pioche.png");
+            Image imageVide = new Image(carteFileVide.toURI().toString());
+            for (int i = 0; i < 8; i++) {
+                ((ImageView) root.lookup("#mainJoueur" + i + "j" + mainJoueur.getJoueurId())).setImage(imageVide);
+            }
+        //Sinon on les affiche
+        } else {
+            mainJoueur.afficherMain();
+        }
     }
 
     public static void main(String[] args) {

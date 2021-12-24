@@ -61,9 +61,6 @@ public class MainJoueur {
 
     public void afficherMain() {
         for(int i = 0; i < 8; i++) {
-            //root.getChildren().get(16 + i).setTranslateX(68*i-238);
-            //root.getChildren().get(16 + i).setTranslateY(350);
-            //((ImageView) root.getChildren().get(16 + i)).setImage(cartes[i].getImage());
             root.lookup("#mainJoueur"+i+"j"+joueurId).setTranslateX(68*i-238);
             root.lookup("#mainJoueur"+i+"j"+joueurId).setTranslateY(350 * sign);
             ((ImageView) root.lookup("#mainJoueur"+i+"j"+joueurId)).setImage(cartes[i].getImage());
@@ -119,33 +116,22 @@ public class MainJoueur {
             } else {
                 indice = i;
             }
-            //System.out.println("La carte piochée est "+nouvelleCarte.getValeur()+nouvelleCarte.getCouleur()+
-            //        " avec l'indice "+indice);
             //Si la nouvelle carte est plus grande que la carte considérée...
             if (nouvelleCarte.getId_couleur() < cartes[indice].getId_couleur() ||
                     (nouvelleCarte.getId_couleur() == cartes[indice].getId_couleur()
                     && nouvelleCarte.getValeur() <= cartes[indice].getValeur())) {
-                //System.out.println("la nouvelle carte est plus grande que la carte considérée car "+nouvelleCarte.getCouleur()
-                //+nouvelleCarte.getValeur()+" est plus grande que "+cartes[indice].getCouleur()+cartes[i].getValeur());
                 if(carteSelectionnee < indice) {
-                    //System.out.println("carteSelectionnee < indice");
                     if(i == 0) {
-                        //System.out.println("i == 0");
                         return 0;
                     }
-                    //System.out.println("i != 0");
                     if (cartes[i].getValeur() == -1) {
-                        //System.out.println("cartes[i].getValeur() == -1");
                         return i;
                     }
-                    //System.out.println("cartes[i].getValeur() != -1");
                     return i - 1;
                 }
-                //System.out.println("carteSelectionnee >= indice");
                 return i;
             }
         }
-        //System.out.println("problème");
         return 7;
     }
 
@@ -191,6 +177,10 @@ public class MainJoueur {
 
     public void setFini(Boolean fini) {
         this.fini = fini;
+    }
+
+    public int getJoueurId() {
+        return joueurId;
     }
 
 }

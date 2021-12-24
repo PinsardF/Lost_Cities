@@ -32,7 +32,6 @@ public class CompteurPioche {
     }
 
     public void updateText(int nbCartes) {
-        System.out.println(nbCartes);
         if (nbCartes >= 2) {
             this.text = "Il reste " + nbCartes + " cartes";
         } else if (nbCartes == 1) {
