@@ -76,13 +76,39 @@ public class Main extends Application {
             play(primaryStage, 2);
         });
         ((ImageView) root.getChildren().get(2)).setOnMouseClicked( event -> {
-            System.out.println("Règles");
+            regles(primaryStage);
         });
         ((ImageView) root.getChildren().get(3)).setOnMouseClicked( event -> {
             System.exit(0);
         });
 
         primaryStage.show();
+    }
+
+    public void regles(Stage primaryStage) {
+        //Création du Background et de l'écran
+        Pane root = new StackPane();
+        File file = new File("./src/media/ecranRegles.png");
+        Image image = new Image(file.toURI().toString());
+        BackgroundImage myBI = new BackgroundImage(image,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(myBI));
+        primaryStage.setTitle("Les Cités Perdues");
+        primaryStage.setScene(new Scene(root, 800, 800));
+
+        //Création du bouton Menu
+        File menuFile = new File("./src/media/menubutton.png");
+        Image menuImage = new Image(menuFile.toURI().toString());
+        ImageView menuButton = new ImageView();
+        menuButton.setImage(menuImage);
+        menuButton.setTranslateX(-353);
+        menuButton.setTranslateY(-375);
+        menuButton.setId("menuButton");
+        root.getChildren().add(menuButton);
+        ((ImageView) root.lookup("#menuButton")).setOnMouseClicked(event -> {
+            start(primaryStage);
+        });
     }
 
     public void play(Stage primaryStage, int playersCount) {
